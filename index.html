@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audiolia — Cabinet d'Audioprothèse Toulouse</title>
+<meta name="description" content="Audiolia, cabinet d'audioprothèse à Toulouse. Bilan auditif gratuit, appareillage 100% Santé, suivi personnalisé.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #4a7c6f;
+    --sage-light: #6a9e8f;
+    --sage-pale: #e8f3f0;
+    --sage-dark: #2d5248;
+    --warm: #f5ede4;
+    --warmth: #e8975a;
+    --warmth-light: #f2b07e;
+    --dark: #1a2422;
+    --mid: #3a4e4a;
+    --gray: #6a8a86;
+    --light: #faf7f4;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 6%; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
+  nav.scrolled { background: rgba(250,247,244,0.97); backdrop-filter: blur(12px); box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+  .nav-logo { display: flex; align-items: center; gap: 0.5rem; }
+  .logo-icon { width: 36px; height: 36px; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .logo-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--dark); }
+  .logo-text span { color: var(--sage); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--sage); }
+  .nav-cta { background: var(--sage) !important; color: white !important; padding: 0.6rem 1.4rem; border-radius: 100px; font-weight: 700 !important; }
+  .nav-cta:hover { background: var(--sage-dark) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; }
+  .hero-bg-photo { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1584467735815-f778f274e296?w=1600&q=80'); background-size: cover; background-position: center 30%; z-index: 0; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(26,36,34,0.96) 0%, rgba(26,36,34,0.90) 40%, rgba(45,82,72,0.70) 70%, rgba(74,124,111,0.45) 100%); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; padding: 8rem 6% 5rem; max-width: 680px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.78rem; color: white; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.8rem; opacity: 0; animation: fade-up 0.6s ease forwards 0.2s; }
+  .badge-dot { width: 6px; height: 6px; background: var(--warmth-light); border-radius: 50%; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 4.5rem); font-weight: 400; color: white; line-height: 1.15; margin-bottom: 1.5rem; opacity: 0; animation: fade-up 0.6s ease forwards 0.4s; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+  .hero-title em { font-style: italic; color: var(--warmth-light); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.92); line-height: 1.8; font-weight: 400; margin-bottom: 2.5rem; opacity: 0; animation: fade-up 0.6s ease forwards 0.6s; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fade-up 0.6s ease forwards 0.8s; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 100px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s; }
+  .btn-primary { background: var(--warmth); color: white; box-shadow: 0 4px 20px rgba(232,151,90,0.4); }
+  .btn-primary:hover { background: var(--warmth-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,151,90,0.5); }
+  .btn-secondary { background: rgba(255,255,255,0.18); color: white; border: 1.5px solid rgba(255,255,255,0.5); }
+  .btn-secondary:hover { background: rgba(255,255,255,0.28); transform: translateY(-2px); }
+  .hero-trust { display: flex; gap: 2.5rem; margin-top: 4rem; flex-wrap: wrap; opacity: 0; animation: fade-up 0.6s ease forwards 1s; }
+  .trust-item { display: flex; flex-direction: column; }
+  .trust-number { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--warmth-light); line-height: 1; }
+  .trust-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 0.2rem; font-weight: 400; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* BAND */
+  .band { background: var(--sage); padding: 1.2rem 6%; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+  .band-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: white; font-weight: 700; }
+
+  /* SECTIONS */
+  section { padding: 6rem 6%; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.8rem; font-weight: 700; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; line-height: 1.2; color: var(--dark); margin-bottom: 1.2rem; }
+  .section-title em { font-style: italic; color: var(--sage); }
+  .section-sub { font-size: 0.95rem; color: var(--mid); line-height: 1.8; font-weight: 500; max-width: 580px; }
+
+  /* SERVICES */
+  .services { background: var(--white); }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .service-card { background: var(--light); border-radius: 16px; overflow: hidden; border: 1px solid rgba(74,124,111,0.1); transition: transform 0.25s, box-shadow 0.25s; }
+  .service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(74,124,111,0.12); }
+  .service-card.featured { background: var(--sage); grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .service-photo { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .service-card.featured .service-photo { height: 100%; min-height: 320px; }
+  .service-body { padding: 2.2rem; }
+  .service-card.featured .service-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .card-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); font-weight: 700; margin-bottom: 0.5rem; }
+  .service-card.featured .card-label { color: var(--warmth-light); }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: 0.8rem; }
+  .service-card.featured .card-title { color: white; font-size: 1.6rem; }
+  .card-text { font-size: 0.9rem; color: var(--mid); line-height: 1.75; font-weight: 500; }
+  .service-card.featured .card-text { color: rgba(255,255,255,0.92); font-size: 0.92rem; }
+  .featured-list { margin-top: 1.2rem; list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .featured-list li { font-size: 0.88rem; color: white; display: flex; align-items: center; gap: 0.6rem; font-weight: 500; }
+  .featured-list li span { color: var(--warmth-light); font-weight: 700; }
+  .card-cta { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.5rem; font-size: 0.88rem; font-weight: 700; color: white; text-decoration: none; background: var(--warmth); padding: 0.7rem 1.4rem; border-radius: 100px; transition: all 0.2s; align-self: flex-start; box-shadow: 0 4px 15px rgba(232,151,90,0.35); }
+  .card-cta:hover { background: var(--warmth-light); transform: translateY(-1px); }
+
+  /* 100% SANTE */
+  .sante { background: var(--warm); }
+  .sante-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 1rem; }
+  .sante-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .sante-photo-main { grid-column: 1 / -1; width: 100%; height: 220px; object-fit: cover; border-radius: 14px; }
+  .sante-photo-sm { width: 100%; height: 140px; object-fit: cover; border-radius: 12px; }
+  .sante-badge { display: inline-flex; align-items: center; gap: 0.8rem; background: var(--sage); color: white; padding: 1rem 1.8rem; border-radius: 12px; margin-bottom: 1.5rem; }
+  .sante-badge-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--warmth-light); line-height: 1; }
+  .sante-badge-text { font-size: 0.88rem; color: white; font-weight: 600; line-height: 1.4; }
+  .sante-text p { font-size: 0.95rem; color: var(--mid); line-height: 1.85; margin-bottom: 1rem; font-weight: 500; }
+  .sante-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .sante-list li { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.92rem; color: var(--mid); font-weight: 500; }
+  .check { width: 22px; height: 22px; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; font-size: 0.65rem; margin-top: 1px; font-weight: 700; }
+
+  /* MARQUES */
+  .marques { background: var(--white); }
+  .brands-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+  .brand-pill { padding: 0.8rem 1.8rem; border: 1.5px solid #b8d8d0; border-radius: 100px; font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--sage-dark); font-weight: 500; transition: all 0.2s; background: var(--light); cursor: default; }
+  .brand-pill:hover { background: var(--sage); color: white; border-color: var(--sage); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(74,124,111,0.2); }
+
+  /* ABOUT */
+  .about { background: var(--sage-pale); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .about-photo-wrap { position: relative; }
+  .about-photo-main { width: 100%; height: 380px; object-fit: cover; border-radius: 16px; display: block; }
+  .about-photo-badge { position: absolute; bottom: -20px; right: -20px; background: var(--sage); color: white; padding: 1.2rem 1.5rem; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(74,124,111,0.35); }
+  .apb-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--warmth-light); line-height: 1; }
+  .apb-text { font-size: 0.72rem; color: rgba(255,255,255,0.9); margin-top: 0.2rem; font-weight: 500; }
+  .about-text { padding-top: 1rem; }
+  .about-text p { font-size: 0.95rem; color: var(--mid); line-height: 1.85; margin-bottom: 1rem; font-weight: 500; }
+  .about-text strong { color: var(--sage-dark); font-weight: 700; }
+  .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .value-card { background: white; border-radius: 12px; padding: 1.2rem; text-align: center; transition: transform 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+  .value-card:hover { transform: translateY(-3px); }
+  .value-emoji { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  .value-title { font-size: 0.88rem; font-weight: 700; color: var(--dark); margin-bottom: 0.2rem; }
+  .value-text { font-size: 0.78rem; color: var(--gray); font-weight: 500; line-height: 1.5; }
+
+  /* PROCESS */
+  .process { background: var(--white); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 3.5rem; position: relative; }
+  .steps::before { content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px; background: linear-gradient(to right, var(--sage-pale), var(--sage-light), var(--sage-pale)); z-index: 0; }
+  .step { text-align: center; position: relative; z-index: 1; }
+  .step-number { width: 56px; height: 56px; background: var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; box-shadow: 0 4px 15px rgba(74,124,111,0.3); }
+  .step-title { font-weight: 700; font-size: 0.92rem; color: var(--dark); margin-bottom: 0.5rem; }
+  .step-text { font-size: 0.83rem; color: var(--mid); line-height: 1.6; font-weight: 500; }
+
+  /* CONTACT */
+  .contact { position: relative; overflow: hidden; text-align: center; }
+  .contact-photo-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=70'); background-size: cover; background-position: center; z-index: 0; }
+  .contact-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(45,82,72,0.97), rgba(74,124,111,0.95)); z-index: 1; }
+  .contact-inner { position: relative; z-index: 2; }
+  .contact .section-label { color: var(--warmth-light); }
+  .contact .section-title { color: white; }
+  .contact-sub { font-size: 0.95rem; color: rgba(255,255,255,0.88); margin: 0 auto 3rem; max-width: 500px; line-height: 1.8; font-weight: 500; }
+  .contact-box { background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 2.5rem; max-width: 560px; margin: 0 auto; backdrop-filter: blur(10px); }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+  .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.12); border-radius: 12px; text-decoration: none; color: white; transition: background 0.2s; text-align: left; border: 1px solid rgba(255,255,255,0.15); }
+  .contact-item:hover { background: rgba(255,255,255,0.2); }
+  .ci-icon { width: 42px; height: 42px; background: rgba(255,255,255,0.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
+  .ci-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--warmth-light); margin-bottom: 0.15rem; font-weight: 700; }
+  .ci-value { font-size: 0.95rem; font-weight: 600; color: white; }
+  .rdv-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--warmth); color: white; padding: 1rem 2.5rem; border-radius: 100px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.25s; box-shadow: 0 8px 25px rgba(232,151,90,0.4); }
+  .rdv-btn:hover { background: var(--warmth-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 2rem 6%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: white; }
+  .footer-logo span { color: var(--sage-light); }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+  .footer-links a { font-size: 0.78rem; color: #5a7a74; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--sage-light); }
+  .footer-copy { font-size: 0.75rem; color: #3a5050; width: 100%; text-align: center; padding-top: 1rem; border-top: 1px solid #1a2e2e; margin-top: 0.5rem; }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card.featured { grid-template-columns: 1fr; }
+    .service-card.featured .service-photo { height: 240px; min-height: unset; }
+    .sante-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .steps::before { display: none; }
+    .nav-links { display: none; }
+    section { padding: 4rem 5%; }
+    .band { gap: 1.5rem; }
+    .about-photo-badge { right: 10px; bottom: 10px; }
+  }
+  @media (max-width: 600px) {
+    .about-values { grid-template-columns: 1fr 1fr; }
+    .sante-photos { grid-template-columns: 1fr; }
+    .sante-photo-main { grid-column: 1; }
+    .hero-trust { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+    <span class="logo-text">Audio<span>lia</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#sante">100% Santé</a></li>
+    <li><a href="#marques">Marques</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact" class="nav-cta">Prendre RDV</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div> Cabinet d'audioprothèse · Toulouse</div>
+    <h1 class="hero-title">Retrouvez le plaisir<br><em>d'entendre la vie</em></h1>
+    <p class="hero-sub">Audiolia vous accompagne avec bienveillance dans votre parcours auditif — du bilan gratuit à l'appareillage sur mesure, 100% pris en charge.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">📅 Bilan auditif gratuit</a>
+      <a href="#services" class="btn btn-secondary">Découvrir nos services</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-number">100%</span><span class="trust-label">Remboursé<br>Sécu + mutuelle</span></div>
+      <div class="trust-item"><span class="trust-number">0€</span><span class="trust-label">Bilan auditif<br>sans engagement</span></div>
+      <div class="trust-item"><span class="trust-number">5+</span><span class="trust-label">Grandes marques<br>disponibles</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-item">✓ Bilan auditif gratuit</div>
+  <div class="band-item">✓ Appareillage 100% Santé</div>
+  <div class="band-item">✓ Suivi personnalisé à vie</div>
+  <div class="band-item">✓ Toulouse & alentours</div>
+</div>
+
+<section id="services" class="services reveal">
+  <p class="section-label">Nos services</p>
+  <h2 class="section-title">Un accompagnement<br><em>complet & humain</em></h2>
+  <p class="section-sub">De votre premier bilan à votre suivi au long cours, Audiolia est à vos côtés à chaque étape.</p>
+  <div class="services-grid">
+    <div class="service-card featured">
+      <img class="service-photo" src="https://images.unsplash.com/photo-1638202993928-7d113b8e4519?w=800&q=80" alt="Bilan auditif professionnel" loading="lazy">
+      <div class="service-body">
+        <div class="card-label">Service phare</div>
+        <h3 class="card-title">Bilan auditif gratuit & sans engagement</h3>
+        <p class="card-text">Un rendez-vous complet pour évaluer précisément votre audition. Audiométrie tonale, vocale, tympanométrie — et des réponses claires sur votre situation.</p>
+        <ul class="featured-list">
+          <li><span>✓</span> Audiométrie tonale (CA/CO)</li>
+          <li><span>✓</span> Audiométrie vocale & champ libre</li>
+          <li><span>✓</span> Tympanométrie & réflexe stapédien</li>
+          <li><span>✓</span> Analyse & conseils personnalisés</li>
+          <li><span>✓</span> Durée : 45 à 60 minutes</li>
+        </ul>
+        <a href="#contact" class="card-cta">Prendre rendez-vous →</a>
+      </div>
+    </div>
+    <div class="service-card">
+      <img class="service-photo" src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=700&q=80" alt="Appareillage auditif" loading="lazy">
+      <div class="service-body">
+        <div class="card-label">Appareillage</div>
+        <h3 class="card-title">Appareillage auditif sur mesure</h3>
+        <p class="card-text">Sélection, adaptation et réglage de votre appareil parmi les meilleures marques. Contours d'oreilles, intra-auriculaires, RIC — nous trouvons la solution qui vous correspond vraiment.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img class="service-photo" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&q=80" alt="Suivi et SAV" loading="lazy">
+      <div class="service-body">
+        <div class="card-label">Suivi & SAV</div>
+        <h3 class="card-title">Suivi & service après-vente</h3>
+        <p class="card-text">Votre confort auditif évolue avec vous. Rendez-vous de suivi, réglages fins, nettoyage, réparation — un accompagnement sans interruption pour une satisfaction durable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sante" class="sante reveal">
+  <p class="section-label">Remboursement</p>
+  <h2 class="section-title">Bien entendre<br><em>sans payer</em></h2>
+  <div class="sante-grid">
+    <div class="sante-photos">
+      <img class="sante-photo-main" src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=900&q=80" alt="Consultation audiologie" loading="lazy">
+      <img class="sante-photo-sm" src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=500&q=80" alt="Aide auditive moderne" loading="lazy">
+      <img class="sante-photo-sm" src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&q=80" alt="Patient souriant" loading="lazy">
+    </div>
+    <div class="sante-text">
+      <div class="sante-badge">
+        <div class="sante-badge-num">100%</div>
+        <div class="sante-badge-text">Santé<br>Zéro reste à charge</div>
+      </div>
+      <p>La réforme 100% Santé vous permet d'accéder à des appareils auditifs performants sans avancer le moindre euro. Sécurité Sociale et mutuelle couvrent l'intégralité du coût.</p>
+      <p>Chez Audiolia, nous gérons toutes les démarches administratives pour que vous n'ayez à vous préoccuper que de votre confort auditif.</p>
+      <ul class="sante-list">
+        <li><span class="check">✓</span> Appareils de classe I entièrement remboursés</li>
+        <li><span class="check">✓</span> Garantie 4 ans incluse</li>
+        <li><span class="check">✓</span> Essai gratuit de 30 jours</li>
+        <li><span class="check">✓</span> Prise en charge des deux oreilles</li>
+        <li><span class="check">✓</span> Renouvellement possible tous les 4 ans</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="marques" class="marques reveal">
+  <p class="section-label">Nos marques partenaires</p>
+  <h2 class="section-title">Les meilleures technologies<br><em>à votre service</em></h2>
+  <p class="section-sub">Audiolia travaille avec les leaders mondiaux de l'aide auditive pour vous proposer les solutions les plus adaptées à votre mode de vie.</p>
+  <div class="brands-row">
+    <div class="brand-pill">Phonak</div>
+    <div class="brand-pill">Resound</div>
+    <div class="brand-pill">Oticon</div>
+    <div class="brand-pill">Starkey</div>
+    <div class="brand-pill">Signia</div>
+  </div>
+</section>
+
+<section class="process reveal">
+  <p class="section-label">Comment ça marche</p>
+  <h2 class="section-title">Votre parcours<br><em>en 4 étapes simples</em></h2>
+  <div class="steps">
+    <div class="step"><div class="step-number">1</div><div class="step-title">Prise de RDV</div><p class="step-text">Écrivez à contact@audiolia.fr pour fixer votre bilan gratuit</p></div>
+    <div class="step"><div class="step-number">2</div><div class="step-title">Bilan auditif</div><p class="step-text">Évaluation complète en 45 minutes dans un cadre bienveillant</p></div>
+    <div class="step"><div class="step-number">3</div><div class="step-title">Essai gratuit</div><p class="step-text">30 jours d'essai dans votre quotidien, sans engagement</p></div>
+    <div class="step"><div class="step-number">4</div><div class="step-title">Suivi à vie</div><p class="step-text">Réglages, SAV et accompagnement tout au long de votre vie</p></div>
+  </div>
+</section>
+
+<section id="about" class="about reveal">
+  <p class="section-label">À propos d'Audiolia</p>
+  <h2 class="section-title">Une approche <em>différente</em><br>de l'audioprothèse</h2>
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <img class="about-photo-main" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=80" alt="Audioprothésiste Audiolia" loading="lazy">
+      <div class="about-photo-badge">
+        <div class="apb-num">10+</div>
+        <div class="apb-text">ans d'expertise<br>technique</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Audiolia est né d'une conviction : <strong>la perte auditive est trop souvent minimisée</strong>, alors qu'elle impacte profondément le quotidien, les relations et peut conduire à l'isolement.</p>
+      <p>Notre approche place le patient au centre. Avant de recommander une solution technique, nous prenons le temps de <strong>comprendre votre vie, vos habitudes et vos attentes</strong>.</p>
+      <p>Chaque patient est unique. Chaque solution l'est aussi.</p>
+      <div class="about-values">
+        <div class="value-card"><div class="value-emoji">🤝</div><div class="value-title">Bienveillance</div><div class="value-text">Écoute active et accompagnement sans pression</div></div>
+        <div class="value-card"><div class="value-emoji">🔬</div><div class="value-title">Expertise</div><div class="value-text">Rigueur clinique & technologies avancées</div></div>
+        <div class="value-card"><div class="value-emoji">⚖️</div><div class="value-title">Éthique</div><div class="value-text">Conseil indépendant & transparent</div></div>
+        <div class="value-card"><div class="value-emoji">🎯</div><div class="value-title">Résultat</div><div class="value-text">Votre satisfaction sur le long terme</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact reveal">
+  <div class="contact-photo-bg"></div>
+  <div class="contact-overlay"></div>
+  <div class="contact-inner">
+    <p class="section-label">Contact & Rendez-vous</p>
+    <h2 class="section-title">Commençons par<br><em>un bilan gratuit</em></h2>
+    <p class="contact-sub">Sans engagement, sans attente. Prenez rendez-vous dès aujourd'hui et faites le premier pas vers un meilleur confort auditif.</p>
+    <div class="contact-box">
+      <div class="contact-items">
+        <a href="mailto:contact@audiolia.fr" class="contact-item">
+          <div class="ci-icon">✉️</div>
+          <div><div class="ci-label">Email</div><div class="ci-value">contact@audiolia.fr</div></div>
+        </a>
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-label">Zone d'intervention</div><div class="ci-value">Toulouse & alentours (31)</div></div>
+        </div>
+      </div>
+      <a href="mailto:contact@audiolia.fr?subject=Demande de bilan auditif gratuit" class="rdv-btn">📅 Demander mon bilan gratuit</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Audio<span>lia</span></div>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#sante">100% Santé</a></li>
+    <li><a href="#marques">Marques</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Audiolia — Cabinet d'audioprothèse · Toulouse · contact@audiolia.fr</p>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
